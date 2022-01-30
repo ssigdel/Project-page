@@ -7,7 +7,7 @@ class NavBar extends LitElement{
                 background-color: white;
             }
             .nav-content{
-                padding: 0 10px;
+                padding: 0 30px;
                 display: flex;
                 justify-content: space-between;
             }
@@ -21,7 +21,7 @@ class NavBar extends LitElement{
         return html `
           <nav>
             <div class="nav-content">
-                <h3>Projects</h3>
+                <h2>Projects</h2>
                 <search-bar></search-bar>
             </div>
           </nav>

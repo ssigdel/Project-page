@@ -1,5 +1,4 @@
-import '@polymer/paper-button/paper-button';
-import '@polymer/paper-dialog/paper-dialog';
+
 import { html, LitElement } from 'lit';
 
 class DialogBox extends LitElement{

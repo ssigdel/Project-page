@@ -1,4 +1,4 @@
-import '@polymer/paper-fab/paper-fab';
+
 import { css, html, LitElement } from 'lit';
 
 class FloatingButton extends LitElement{
@@ -31,7 +31,7 @@ class FloatingButton extends LitElement{
 
     render(){
         return html `
-            <paper-fab src="../icons/plus-solid.svg" @click=${this.handleFloatingBtnClick}></paper-fab>
+            <paper-fab icon="add" @click=${this.handleFloatingBtnClick}></paper-fab>
         `
     }
 }

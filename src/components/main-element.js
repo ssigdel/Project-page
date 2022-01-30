@@ -6,7 +6,6 @@ class MainElement extends LitElement{
             .wrapper{
                 margin: 5%;
             }
-
         `
     }
     constructor(){
@@ -23,7 +22,7 @@ class MainElement extends LitElement{
         return html `
             <nav-bar></nav-bar>
             <div class="wrapper">
-                <div>
+                <div class="projects">
                      <project-card></project-card>
                      <project-card></project-card>
                      <project-card></project-card>
@@ -34,9 +33,9 @@ class MainElement extends LitElement{
                      <project-card></project-card>
                      <project-card></project-card>
                 </div>
-                <project-form class="form"></project-form>
-                <floating-button .onButtonClick=${this.handleBtnClick}></floating-button>
             </div>
+            <floating-button .onButtonClick=${this.handleBtnClick}></floating-button>
+            <project-form class="form"></project-form>
         `
     }
 }
