@@ -7,7 +7,7 @@ class SearchBar extends LitElement{
 
     render(){
         return html `
-            <h3>Search Element</h3>
+           <h3>Search Element</h3>
         `
     }
 }
