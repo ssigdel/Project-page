@@ -10,7 +10,7 @@ class ProjectOptions extends LitElement{
                 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             }
             .list-item{
-                padding: 10px;
+                padding: 5px;
                 margin: 5px;
             }
         `
@@ -23,9 +23,9 @@ class ProjectOptions extends LitElement{
         return html `
             <paper-icon-button icon="more-vert" @click=${this.openDropdown}></paper-icon-button>
             <iron-dropdown id="dropdown" horizontal-align="right">
-                <div class="list-item" slot="dropdown-content"><iron-icon icon="info"></iron-icon>View Details</div>
-                <div class="list-item" slot="dropdown-content"><iron-icon icon="create"></iron-icon>Edit</div>
-                <div class="list-item" slot="dropdown-content"><iron-icon icon="delete"></iron-icon>Delete</div>
+                <div class="list-item" slot="dropdown-content"><paper-icon-button icon="info"></paper-icon-button>View Details</div>
+                <div class="list-item" slot="dropdown-content"><paper-icon-button icon="create"></paper-icon-button>Edit</div>
+                <div class="list-item" slot="dropdown-content"><paper-icon-button icon="delete"></paper-icon-button>Delete</div>
             </iron-dropdown>
         `
     }

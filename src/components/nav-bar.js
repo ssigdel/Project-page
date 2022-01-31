@@ -1,6 +1,11 @@
 import { css, html, LitElement } from 'lit';
 
 class NavBar extends LitElement{
+    static get properties(){
+        return {
+            onProjectSearch: {type: Function}
+        }
+    }
     static get styles(){
         return css `
             nav{
@@ -15,6 +20,7 @@ class NavBar extends LitElement{
     }
     constructor(){
         super();
+        this.onProjectSearch = () => {}
     }
 
     render(){
@@ -22,7 +28,7 @@ class NavBar extends LitElement{
           <nav>
             <div class="nav-content">
                 <h2>Projects</h2>
-                <search-bar></search-bar>
+                <search-bar .onProjectSearch=${this.onProjectSearch}></search-bar>
             </div>
           </nav>
         `

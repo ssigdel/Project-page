@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit';
 
+const priority = [{id: 0, value: 'high'}, {id: 1, value: 'medium'}, {id: 2, value: 'low'}]
+
 class ProjectForm extends LitElement{
     static get properties(){
         return{
-            name: {type: String},
-            description: {type: String},
-            projectType : {type: String}
+            formData : {type: Object}
         }
     }
     static get styles(){
@@ -27,24 +27,20 @@ class ProjectForm extends LitElement{
         super();
         this.name = ''
         this.description = ''
+        this.formData = { name: '', description: '', priority: ''}
     }
 
-    onChange(event){
-        switch(event.target.name){
-            case 'name':
-                this.name = event.target.value
-                break;
-            case 'description':
-                this.description = event.target.value
-                break;
-        }
-       
+    onChange(value, name){
+        this.formData = {...this.formData, [name]: value}
+        console.log(this.formData)
     }
 
     onSubmit(){
         console.log('clicked')
         console.log(this.name, this.description)
     }
+
+   
 
     render(){
         return html `
@@ -56,15 +52,15 @@ class ProjectForm extends LitElement{
         <iron-form>
         <form action="/" method="post">
        
-            <paper-input always-float-label name="name" required auto-validate pattern="[a-zA-Z]*" @change="${this.onChange}"  error-message="Please enter text only!"  label="Name"></paper-input>
+            <paper-input always-float-label name="name" required auto-validate pattern="[a-zA-Z]*" @input="${(event) => this.onChange(event.target.value, event.target.name)}"  error-message="Please enter text only!"  label="Name"></paper-input>
 
-            <paper-textarea always-float-label name="description" @change="${this.onChange}" required label="Project Description"></paper-textarea>
+            <paper-textarea always-float-label name="description" @input="${(event) => this.onChange(event.target.value, event.target.name)}" required label="Project Description"></paper-textarea>
 
-            <paper-dropdown-menu label="Priority">
-                <paper-listbox slot="dropdown-content" id="priority" selected="1">
-                    <paper-item value="high">High</paper-item>
-                    <paper-item value="medium">Medium</paper-item>
-                    <paper-item value="low">Low</paper-item>
+            <paper-dropdown-menu @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority">
+                <paper-listbox slot="dropdown-content" id="priority">
+                    <paper-item item-name=${priority[0]['value']}>${priority[0].value}</paper-item>
+                    <paper-item item-name=${priority[0]['value']}>${priority[1].value}</paper-item>
+                    <paper-item item-name=${priority[0]['value']}>${priority[2].value}</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 

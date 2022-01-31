@@ -2,6 +2,11 @@
 import { css, html, LitElement } from 'lit';
 
 class ProjectCard extends LitElement{
+    static get properties(){
+        return {
+            project : {type: Object}
+        }
+    }
     static get styles(){
         return css `
             paper-card{
@@ -29,7 +34,8 @@ class ProjectCard extends LitElement{
             .description-content{
                 overflow-y: scroll;
                 height: 50px;
-                padding-bottom: 20px;
+                margin: 5px;
+                font-size: 14px;
             }
             .description-content::-webkit-scrollbar{
                 display: none;
@@ -57,6 +63,7 @@ class ProjectCard extends LitElement{
                 justify-content: space-around;
                 overflow-y: scroll;
                 height: 60px;
+                font-size: 14px;
             }
             .stage-content::-webkit-scrollbar{
                 display: none;
@@ -69,6 +76,7 @@ class ProjectCard extends LitElement{
     }
     constructor(){
         super();
+        this.project = {}
     }
 
     render(){
@@ -77,24 +85,24 @@ class ProjectCard extends LitElement{
                 <div class="container">
                     <div class="heading">
                         <div>
-                            <h4>ASP Latest Test</h4>
+                            <h4>${this.project.name}</h4>
                             <p class="test">TEST002 ASDFA</p>
                         </div>
                         <project-options></project-options>
                     </div>
                     <div class="description">
                         <div class="description-content">
-                            This is the description section. This is the description section. This is the description section. This is the description section. This is description section. This is description section. This is description section.
+                           ${this.project.description}
                         </div>
                     </div>
                     <div class="status">
                         <div class="item">
                             <h4>PRIORITY</h4>
-                            <p>High</p>
+                            <p>${this.project.priority}</p>
                         </div>
                         <div class="item">
                             <h4>STATUS</h4>
-                            <p>Attrited</p>
+                            <p>${this.project.status}</p>
                         </div>
                     </div>
                     <div class="stage">
@@ -104,12 +112,10 @@ class ProjectCard extends LitElement{
                         </div>
                         <div class="stage-content">
                             <div>
-                                <p>ASP Pipeline</p>
-                                <p>Antibody pipeline</p>
+                                ${this.project.pipelines.map((pipeline) => html `<p>${pipeline}</p>`)}
                             </div>
                             <div>
-                                <p>Lead Identification</p>
-                                <p>Lead Validation</p>
+                                ${this.project.stages.map((stage) => html `<p>${stage}</p>`)}
                             </div>
                         </div>
                     </div>

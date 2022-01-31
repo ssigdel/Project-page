@@ -34,10 +34,13 @@ import './components/dialog-box';
 import './components/floating-button';
 import './components/main-element';
 import './components/nav-bar';
-import './components/project-card/project-card';
-import './components/project-card/project-options';
 import './components/project-form';
+import './components/project/project-card';
+import './components/project/project-element';
+import './components/project/project-options';
 import './components/search-bar';
+import './constants/projects';
+
 
 
 
