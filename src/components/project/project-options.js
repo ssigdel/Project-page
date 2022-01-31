@@ -25,6 +25,7 @@ class ProjectOptions extends LitElement{
         super();
         this.index = 0
         this.onDeleteProject = () => {}
+        this.handleCancelClick = this.handleCancelClick.bind(this)
     }
 
     render(){
@@ -35,8 +36,12 @@ class ProjectOptions extends LitElement{
                 <div class="list-item" slot="dropdown-content"><paper-icon-button icon="create"></paper-icon-button>Edit</div>
                 <div class="list-item" slot="dropdown-content"><paper-icon-button @click=${this.handleDeleteClick} icon="delete"></paper-icon-button>Delete</div>
             </iron-dropdown>
-            <dialog-box class="box" index=${this.index} .onDeleteProject=${this.onDeleteProject}></dialog-box>
+            <dialog-box class="box" index=${this.index} .onCancelClick=${this.handleCancelClick} .onDeleteProject=${this.onDeleteProject}></dialog-box>
         `
+    }
+
+    handleCancelClick(){
+        this.shadowRoot.querySelector('#dropdown').close()
     }
 
     handleDeleteClick(){

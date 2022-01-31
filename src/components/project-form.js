@@ -47,7 +47,7 @@ class ProjectForm extends LitElement{
         <paper-dialog class="addForm">
         <div class="headings">
             <h3>Add Project</h3>
-            <paper-icon-button dialog-confirm icon="clear"></paper-icon-button>
+            <paper-icon-button dialog-dismiss icon="clear"></paper-icon-button>
         </div>
         <iron-form>
         <form action="/" method="post">

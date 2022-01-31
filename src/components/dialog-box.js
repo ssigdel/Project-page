@@ -5,13 +5,15 @@ class DialogBox extends LitElement{
     static get properties(){
         return{
             index : {type: Number},
-            onDeleteProject : {type: Function}
+            onDeleteProject : {type: Function},
+            onCancelClick: {type: Function}
         }
     }
     constructor(){
         super();
         this.index = 0;
         this.onDeleteProject = () => {}
+        this.onCancelClick = () => {}
     }
 
     render(){
@@ -20,7 +22,7 @@ class DialogBox extends LitElement{
                 <h3>Confirm Delete</h3>
                 <p>Are you sure you want to delete project?</p>
             <div>
-                <paper-button dialog-dismiss>Cancel</paper-button>
+                <paper-button dialog-dismiss @click=${this.onCancelClick}>Cancel</paper-button>
                 <paper-button dialog-confirm autofocus @click=${this.onDelete}>Delete</paper-button>
             </div>
            </paper-dialog>
