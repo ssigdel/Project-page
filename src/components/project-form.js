@@ -1,7 +1,13 @@
-
 import { css, html, LitElement } from 'lit';
 
 class ProjectForm extends LitElement{
+    static get properties(){
+        return{
+            name: {type: String},
+            description: {type: String},
+            projectType : {type: String}
+        }
+    }
     static get styles(){
         return css `
             paper-dialog{
@@ -19,6 +25,25 @@ class ProjectForm extends LitElement{
     }
     constructor(){
         super();
+        this.name = ''
+        this.description = ''
+    }
+
+    onChange(event){
+        switch(event.target.name){
+            case 'name':
+                this.name = event.target.value
+                break;
+            case 'description':
+                this.description = event.target.value
+                break;
+        }
+       
+    }
+
+    onSubmit(){
+        console.log('clicked')
+        console.log(this.name, this.description)
     }
 
     render(){
@@ -28,28 +53,29 @@ class ProjectForm extends LitElement{
             <h3>Add Project</h3>
             <paper-icon-button dialog-confirm icon="clear"></paper-icon-button>
         </div>
-        <form method="post">
+        <iron-form>
+        <form action="/" method="post">
        
-            <paper-input always-float-label label="Name"></paper-input>
+            <paper-input always-float-label name="name" required auto-validate pattern="[a-zA-Z]*" @change="${this.onChange}"  error-message="Please enter text only!"  label="Name"></paper-input>
 
-            <paper-textarea always-float-label label="Project Description" rows="2"></paper-textarea>
+            <paper-textarea always-float-label name="description" @change="${this.onChange}" required label="Project Description"></paper-textarea>
 
             <paper-dropdown-menu label="Priority">
-                <paper-listbox slot="dropdown-content" selected="1">
-                    <paper-item>High</paper-item>
-                    <paper-item>Medium</paper-item>
-                    <paper-item>Low</paper-item>
+                <paper-listbox slot="dropdown-content" id="priority" selected="1">
+                    <paper-item value="high">High</paper-item>
+                    <paper-item value="medium">Medium</paper-item>
+                    <paper-item value="low">Low</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu label="Project Type">
+            <paper-dropdown-menu id="type" label="Project Type">
                 <paper-listbox slot="dropdown-content" selected="1">
                     <paper-item>Internal Project</paper-item>
                     <paper-item>External Project</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu label="Project Status">
+            <paper-dropdown-menu id="status" label="Project Status">
                 <paper-listbox slot="dropdown-content" selected="1">
                     <paper-item>In Progress</paper-item>
                     <paper-item>Hold</paper-item>
@@ -58,14 +84,13 @@ class ProjectForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-textarea always-float-label label="Status Description" rows="2"></paper-textarea>
+            <paper-textarea always-float-label id="status-desc" label="Status Description"></paper-textarea>
             
-            <paper-button raised onclick="submitForm()">Add</paper-button>
+            <paper-button raised dialog-confirm @click=${this.onSubmit}>Add</paper-button>
             <paper-button dialog-confirm >Cancel</paper-button>
         </form>
-         
+         </iron-form>
         </paper-dialog>
-          
         `
     }
 }

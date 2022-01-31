@@ -3,6 +3,8 @@
 
 //drop list
 import '@polymer/iron-dropdown/iron-dropdown';
+//form
+import '@polymer/iron-form/iron-form';
 //icon
 import '@polymer/iron-icons/iron-icons';
 //button
@@ -25,6 +27,8 @@ import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-item/paper-item';
 //list box
 import '@polymer/paper-listbox/paper-listbox';
+//paper spinner
+import '@polymer/paper-spinner/paper-spinner';
 //components
 import './components/dialog-box';
 import './components/floating-button';
@@ -34,6 +38,7 @@ import './components/project-card/project-card';
 import './components/project-card/project-options';
 import './components/project-form';
 import './components/search-bar';
+
 
 
 
