@@ -2,8 +2,16 @@
 import { html, LitElement } from 'lit';
 
 class DialogBox extends LitElement{
+    static get properties(){
+        return{
+            index : {type: Number},
+            onDeleteProject : {type: Function}
+        }
+    }
     constructor(){
         super();
+        this.index = 0;
+        this.onDeleteProject = () => {}
     }
 
     render(){
@@ -13,10 +21,13 @@ class DialogBox extends LitElement{
                 <p>Are you sure you want to delete project?</p>
             <div>
                 <paper-button dialog-dismiss>Cancel</paper-button>
-                <paper-button dialog-confirm autofocus>Delete</paper-button>
+                <paper-button dialog-confirm autofocus @click=${this.onDelete}>Delete</paper-button>
             </div>
            </paper-dialog>
         `
+    }
+    onDelete(){
+        this.onDeleteProject(this.index)
     }
 }
 

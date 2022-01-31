@@ -83,7 +83,7 @@ class ProjectForm extends LitElement{
             <paper-textarea always-float-label id="status-desc" label="Status Description"></paper-textarea>
             
             <paper-button raised dialog-confirm @click=${this.onSubmit}>Add</paper-button>
-            <paper-button dialog-confirm >Cancel</paper-button>
+            <paper-button dialog-dismiss >Cancel</paper-button>
         </form>
          </iron-form>
         </paper-dialog>

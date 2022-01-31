@@ -21,6 +21,8 @@ class MainElement extends LitElement{
 
         this.searchProject = this.searchProject.bind(this)
 
+        this.deleteProject = this.deleteProject.bind(this)
+
         this.projects = [...PROJECTS]
     }
 
@@ -41,12 +43,18 @@ class MainElement extends LitElement{
         }
     }
 
+    deleteProject(index){
+        this.projects = this.projects.filter((project, id) => {
+            return id != index
+        })
+    }
+
 
     render(){
         return html `
             <nav-bar .onProjectSearch=${this.searchProject}></nav-bar>
             <div class="wrapper">
-               <project-element .projects=${this.projects}></project-element>
+               ${this.projects.length != 0 ? html `<project-element .projects=${this.projects} .onDeleteProject=${this.deleteProject}></project-element>`: html `<h3>No Project Found!</h3>`}
             </div>
             <floating-button .onButtonClick=${this.handleBtnClick}></floating-button>
             <project-form class="form"></project-form>

@@ -4,7 +4,9 @@ import { css, html, LitElement } from 'lit';
 class ProjectCard extends LitElement{
     static get properties(){
         return {
-            project : {type: Object}
+            project : {type: Object},
+            index: {type: Number},
+            onDeleteProject: {type: Function}
         }
     }
     static get styles(){
@@ -77,6 +79,8 @@ class ProjectCard extends LitElement{
     constructor(){
         super();
         this.project = {}
+        this.onDeleteProject = () => {}
+        this.index = 0
     }
 
     render(){
@@ -88,7 +92,7 @@ class ProjectCard extends LitElement{
                             <h4>${this.project.name}</h4>
                             <p class="test">TEST002 ASDFA</p>
                         </div>
-                        <project-options></project-options>
+                        <project-options index=${this.index} .onDeleteProject=${this.onDeleteProject}></project-options>
                     </div>
                     <div class="description">
                         <div class="description-content">

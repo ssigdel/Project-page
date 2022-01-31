@@ -1,6 +1,12 @@
 import { css, html, LitElement } from 'lit';
 
 class ProjectOptions extends LitElement{
+    static get properties(){
+        return {
+            index: {type: Number},
+            onDeleteProject: {type: Function}
+        }
+    }
     static get styles(){
         return css `
             iron-dropdown{
@@ -17,6 +23,8 @@ class ProjectOptions extends LitElement{
     }
     constructor(){
         super();
+        this.index = 0
+        this.onDeleteProject = () => {}
     }
 
     render(){
@@ -25,9 +33,14 @@ class ProjectOptions extends LitElement{
             <iron-dropdown id="dropdown" horizontal-align="right">
                 <div class="list-item" slot="dropdown-content"><paper-icon-button icon="info"></paper-icon-button>View Details</div>
                 <div class="list-item" slot="dropdown-content"><paper-icon-button icon="create"></paper-icon-button>Edit</div>
-                <div class="list-item" slot="dropdown-content"><paper-icon-button icon="delete"></paper-icon-button>Delete</div>
+                <div class="list-item" slot="dropdown-content"><paper-icon-button @click=${this.handleDeleteClick} icon="delete"></paper-icon-button>Delete</div>
             </iron-dropdown>
+            <dialog-box class="box" index=${this.index} .onDeleteProject=${this.onDeleteProject}></dialog-box>
         `
+    }
+
+    handleDeleteClick(){
+        this.shadowRoot.querySelector('.box').shadowRoot.querySelector('.dialog').open()
     }
 
     openDropdown(){
