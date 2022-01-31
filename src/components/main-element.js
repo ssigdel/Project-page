@@ -36,7 +36,7 @@ class MainElement extends LitElement{
         }
         else{
             this.projects = this.projects.filter((project) => {
-                return project.name.startsWith(value)
+                return project.name.toLowerCase().startsWith(value.toLowerCase())
             })
         }
     }
