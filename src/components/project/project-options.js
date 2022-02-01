@@ -36,7 +36,7 @@ class ProjectOptions extends LitElement{
                 <div class="list-item" slot="dropdown-content"><paper-icon-button icon="create"></paper-icon-button>Edit</div>
                 <div class="list-item" slot="dropdown-content"><paper-icon-button @click=${this.handleDeleteClick} icon="delete"></paper-icon-button>Delete</div>
             </iron-dropdown>
-            <dialog-box class="box" index=${this.index} .onCancelClick=${this.handleCancelClick} .onDeleteProject=${this.onDeleteProject}></dialog-box>
+            <dialog-box class="box" index=${this.index} .closeDialog=${this.handleCancelClick} .onDeleteProject=${this.onDeleteProject}></dialog-box>
         `
     }
 

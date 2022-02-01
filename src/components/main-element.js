@@ -23,6 +23,8 @@ class MainElement extends LitElement{
 
         this.deleteProject = this.deleteProject.bind(this)
 
+        this.addProject = this.addProject.bind(this)
+
         this.projects = [...PROJECTS]
     }
 
@@ -49,6 +51,11 @@ class MainElement extends LitElement{
         })
     }
 
+    addProject(project){
+        project = {...project,  pipelines: ['ASP Pipeline', 'Antibody Pipeline'], stages: ['Lead identification', 'Lead Verification']}
+        this.projects = [...this.projects, project]
+    }
+
 
     render(){
         return html `
@@ -57,7 +64,7 @@ class MainElement extends LitElement{
                ${this.projects.length != 0 ? html `<project-element .projects=${this.projects} .onDeleteProject=${this.deleteProject}></project-element>`: html `<h3>No Project Found!</h3>`}
             </div>
             <floating-button .onButtonClick=${this.handleBtnClick}></floating-button>
-            <project-form class="form"></project-form>
+            <project-form class="form" .onAddProject=${this.addProject}></project-form>
         `
     }
 }
