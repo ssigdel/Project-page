@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { PROJECTS } from '../constants/projects';
 
+const projects = [...PROJECTS]
+
 class MainElement extends LitElement{
     static get properties(){
         return{
@@ -25,7 +27,7 @@ class MainElement extends LitElement{
 
         this.addProject = this.addProject.bind(this)
 
-        this.projects = [...PROJECTS]
+        this.projects = [...projects]
     }
 
     handleBtnClick(){
@@ -36,7 +38,7 @@ class MainElement extends LitElement{
         value = value.trim()
 
         if(value.length === 0){
-            this.projects = [...PROJECTS]
+            this.projects = [...projects]
         }
         else{
             this.projects = this.projects.filter((project) => {
@@ -49,10 +51,10 @@ class MainElement extends LitElement{
         this.projects = this.projects.filter((project, id) => {
             return id != index
         })
+        PROJECTS.splice(index, 1)
     }
 
     addProject(project){
-        project = {...project,  pipelines: ['ASP Pipeline', 'Antibody Pipeline'], stages: ['Lead identification', 'Lead Verification']}
         PROJECTS.push(project)
         this.projects = [...this.projects, project]
     }
