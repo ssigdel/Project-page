@@ -53,6 +53,7 @@ class MainElement extends LitElement{
 
     addProject(project){
         project = {...project,  pipelines: ['ASP Pipeline', 'Antibody Pipeline'], stages: ['Lead identification', 'Lead Verification']}
+        PROJECTS.push(project)
         this.projects = [...this.projects, project]
     }
 

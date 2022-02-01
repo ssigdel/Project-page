@@ -11,6 +11,8 @@ import '@polymer/iron-icons/iron-icons';
 import '@polymer/paper-button/paper-button';
 //card
 import '@polymer/paper-card/paper-card';
+//scrollable dialog
+import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable';
 //dialog box
 import '@polymer/paper-dialog/paper-dialog';
 //drop down menu
@@ -40,6 +42,8 @@ import './components/project/project-element';
 import './components/project/project-options';
 import './components/search-bar';
 import './constants/projects';
+
+
 
 
 

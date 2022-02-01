@@ -27,6 +27,20 @@ class ProjectForm extends LitElement{
             .add-btn{
                 background: #ff4081;
                 color: white;
+                padding: 5px;
+            }
+            .pipeline-content paper-dropdown-menu{
+                width: 40%;
+                margin: 10px;
+            }
+            paper-input{
+                margin: 0 5px;
+            }
+            paper-button{
+                margin: 5px;
+            }
+            paper-dropdown-menu{
+                margin: 10px 0;
             }
         `
     }
@@ -43,24 +57,43 @@ class ProjectForm extends LitElement{
     onSubmit(){
         this.formData.priority = priority[this.formData.priority]
         this.formData.type = type[this.formData.type]
-        this.formData.status = priority[this.formData.status]
-        
+        this.formData.status = status[this.formData.status]
+
         this.onAddProject(this.formData)
+        this.shadowRoot.querySelector('iron-form').value = ''
     }
 
     render(){
         return html `
         <paper-dialog class="addForm">
         <div class="headings">
-            <h3>Add Project</h3>
+            <h2>Add Project</h2>
             <paper-icon-button dialog-dismiss icon="clear"></paper-icon-button>
         </div>
+        <paper-dialog-scrollable>
         <iron-form>
         <form action="/" method="post">
        
             <paper-input always-float-label name="name" required auto-validate pattern="[a-zA-Z]*" @input="${(event) => this.onChange(event.target.value, event.target.name)}"  error-message="Please enter text"  label="Name *"></paper-input>
+            <div>
+                <h4>Pipeline(s)</h4>
+                <div class="pipeline-content">
+                    <paper-dropdown-menu label="Pipeline">
+                        <paper-listbox slot="dropdown-content">
+                            <paper-item>ASP Pipeline</paper-item>
+                            <paper-item>Antibody Pipeline</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
 
-            <paper-textarea always-float-label name="description" required auto-validate pattern="[a-zA-Z]*" @input="${(event) => this.onChange(event.target.value, event.target.name)}" error-message="Please enter text" label="Project Description *"></paper-textarea>
+                    <paper-dropdown-menu label="Stages">
+                        <paper-listbox slot="dropdown-content">
+                            <paper-item>Lead Identification</paper-item>
+                            <paper-item>Lead Verification</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                </div>
+            </div>
+            <paper-textarea always-float-label name="description" rows="2" required auto-validate pattern="[a-zA-Z]*" @input="${(event) => this.onChange(event.target.value, event.target.name)}" error-message="Please enter text" label="Project Description *"></paper-textarea>
 
             <paper-dropdown-menu  @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority">
                 <paper-listbox slot="dropdown-content" selected="1">
@@ -86,12 +119,14 @@ class ProjectForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-textarea always-float-label name="statusDescription" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description"></paper-textarea>
-            
-            <paper-button class="add-btn" raised dialog-confirm @click=${this.onSubmit}>Add</paper-button>
-            <paper-button dialog-dismiss >Cancel</paper-button>
+            <paper-textarea always-float-label name="statusDescription" rows="2" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description"></paper-textarea>
         </form>
          </iron-form>
+         </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button class="add-btn" raised dialog-confirm @click=${this.onSubmit}>Add</paper-button>
+                <paper-button dialog-dismiss >Cancel</paper-button>
+            </div>
         </paper-dialog>
         `
     }
