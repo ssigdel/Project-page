@@ -91,14 +91,14 @@ class ProjectForm extends LitElement{
             <div>
                 <h4>Pipeline(s)</h4>
                 <div class="pipeline-content">
-                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline" error-message="Please fill out this field">
+                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline *" error-message="Please fill out this field">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>ASP Pipeline</paper-item>
                             <paper-item>Antibody Pipeline</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
 
-                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages" error-message="Please fill out this field">
+                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages *" error-message="Please fill out this field">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>Lead Identification</paper-item>
                             <paper-item>Lead Verification</paper-item>
@@ -108,7 +108,7 @@ class ProjectForm extends LitElement{
             </div>
             <paper-textarea always-float-label name="description" rows="2" required auto-validate @input="${(event) => this.onChange(event.target.value, event.target.name)}" error-message="Please fill out this field" label="Project Description *" error-message="Please fill out this field"></paper-textarea>
 
-            <paper-dropdown-menu id="priority" required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority" error-message="Please fill out this field">
+            <paper-dropdown-menu id="priority" required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority *" error-message="Please fill out this field">
                 <paper-listbox slot="dropdown-content" selected="1">
                     <paper-item>High</paper-item>
                     <paper-item>Medium</paper-item>
@@ -116,7 +116,7 @@ class ProjectForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type" error-message="Please fill out this field">
+            <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type *" error-message="Please fill out this field">
                 <paper-listbox slot="dropdown-content" selected="1">
                     <paper-item>Internal Project</paper-item>
                     <paper-item>External Project</paper-item>
@@ -132,7 +132,7 @@ class ProjectForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-textarea always-float-label required auto-validate name="statusDescription" rows="2" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description" error-message="Please fill out this field"></paper-textarea>
+            <paper-textarea always-float-label  name="statusDescription" rows="2" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description"></paper-textarea>
         </form>
          </iron-form>
          </paper-dialog-scrollable>
