@@ -27,13 +27,22 @@ class MainElement extends LitElement{
 
         this.addProject = this.addProject.bind(this)
 
+        this.editProject = this.editProject.bind(this)
+
         this.projects = [...projects]
     }
 
+    /**
+     * handle button click
+     */
     handleBtnClick(){
         this.shadowRoot.querySelector('.form').shadowRoot.querySelector('.addForm').open();
     }
 
+    /**
+     * search project
+     * @param {string} value 
+     */
     searchProject(value){
         value = value.trim()
 
@@ -47,24 +56,45 @@ class MainElement extends LitElement{
         }
     }
 
+    /**
+     * delete project
+     * @param {number} index 
+     */
     deleteProject(index){
         this.projects = this.projects.filter((project, id) => {
             return id != index
         })
-        PROJECTS.splice(index, 1)
+        projects.splice(index, 1)
     }
 
+    /**
+     * add new project
+     * @param {object} project 
+     */
     addProject(project){
-        PROJECTS.push(project)
+        projects.push(project)
         this.projects = [...this.projects, project]
     }
 
+    /**
+     * edit the given project
+     * @param {number} index 
+     * @param {object} project 
+     */
+    editProject(index, project){
+        projects.splice(index, 1, project)
+        this.projects = [...projects]
+    }
 
+    /**
+     * render html template
+     * @returns html
+     */
     render(){
         return html `
             <nav-bar .onProjectSearch=${this.searchProject}></nav-bar>
             <div class="wrapper">
-               ${this.projects.length != 0 ? html `<project-element .projects=${this.projects} .onDeleteProject=${this.deleteProject}></project-element>`: html `<h3>No Project Found!</h3>`}
+               ${this.projects.length != 0 ? html `<project-element .projects=${this.projects} .editProject=${this.editProject} .onDeleteProject=${this.deleteProject}></project-element>`: html `<h3>No Project Found!</h3>`}
             </div>
             <floating-button .onButtonClick=${this.handleBtnClick}></floating-button>
             <project-form class="form" .onAddProject=${this.addProject}></project-form>

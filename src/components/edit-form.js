@@ -6,11 +6,13 @@ const status = ['In Progress', 'Hold', 'Attrited', 'Completed']
 const pipelines = ['ASP Pipeline', 'Antibody Pipeline']
 const stages = ['Lead Identification', 'Lead Verification']
 
-class ProjectForm extends LitElement{
+class EditForm extends LitElement{
     static get properties(){
         return{
-            formData : {type: Object},
-            onAddProject: {type: Function}
+            index: {type: Number},
+            project : {type: Object},
+            onEditProject: {type: Function},
+            editProject: {type: Function}
         }
     }
     static get styles(){
@@ -48,30 +50,26 @@ class ProjectForm extends LitElement{
     }
     constructor(){
         super();
-        this.onAddProject = () => {}
-        this.formData = { name: '', description: '', priority: '', type: '', status: '', statusDescription: '', pipelines: '', stages: ''}
+        this.index = 0
+        this.onEditProject = () => {}
+        this.editProject = () => {}
+        this.project = {}
     }
 
     onChange(value, name){
-        this.formData = {...this.formData, [name]: value}
+        this.project = {...this.project, [name]: value}
     }
 
     onSubmit(){
-       let validate = this.shadowRoot.querySelector('iron-form').validate()
+        this.project.priority = priority[this.project.priority] || this.project.priority
+        this.project.type = type[this.project.type] || this.project.type
+        this.project.status = status[this.project.status] || this.project.status
+        this.project.pipelines = [pipelines[this.project.pipelines] || this.project.pipelines[0]]
+        this.project.stages = [stages[this.project.stages] || this.project.stages[0]]
 
-       if(validate){
-        this.formData.priority = priority[this.formData.priority]
-        this.formData.type = type[this.formData.type]
-        this.formData.status = status[this.formData.status]
-        this.formData.pipelines = [pipelines[this.formData.pipelines]]
-        this.formData.stages = [stages[this.formData.stages]]
+        this.editProject(this.index, this.project)
 
-        this.onAddProject(this.formData)
-
-        this.shadowRoot.querySelector('.addForm').close()
-        
-        this.shadowRoot.querySelector('iron-form').reset()
-       }
+        this.shadowRoot.querySelector('.editForm').close()
     }
 
     onCancel(){
@@ -80,27 +78,27 @@ class ProjectForm extends LitElement{
 
     render(){
         return html `
-        <paper-dialog class="addForm">
+        <paper-dialog class="editForm">
         <div class="headings">
-            <h2>Add Project</h2>
+            <h2>Edit Project</h2>
             <paper-icon-button dialog-dismiss @click=${this.onCancel} icon="clear"></paper-icon-button>
         </div>
         <paper-dialog-scrollable>
         <iron-form>
         <form action="/" method="post">
        
-            <paper-input always-float-label name="name" required auto-validate @input="${(event) => this.onChange(event.target.value, event.target.name)}"  error-message="Please fill out this field"  label="Name *"></paper-input>
+            <paper-input always-float-label name="name" value=${this.project.name}   @input="${(event) => this.onChange(event.target.value, event.target.name)}"   label="Name *"></paper-input>
             <div>
                 <h4>Pipeline(s)</h4>
                 <div class="pipeline-content">
-                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline *" error-message="Please fill out this field">
+                    <paper-dropdown-menu value=${this.project.pipelines[0]}  @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline *">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>ASP Pipeline</paper-item>
                             <paper-item>Antibody Pipeline</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
 
-                    <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages *" error-message="Please fill out this field">
+                    <paper-dropdown-menu value=${this.project.stages[0]} @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages *">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>Lead Identification</paper-item>
                             <paper-item>Lead Verification</paper-item>
@@ -108,25 +106,25 @@ class ProjectForm extends LitElement{
                     </paper-dropdown-menu>
                 </div>
             </div>
-            <paper-textarea always-float-label name="description" rows="2" required auto-validate @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Project Description *" error-message="Please fill out this field"></paper-textarea>
+            <paper-textarea always-float-label value=${this.project.description} name="description" rows="2"  @input="${(event) => this.onChange(event.target.value, event.target.name)}"  label="Project Description *" ></paper-textarea>
 
-            <paper-dropdown-menu id="priority" required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority *" error-message="Please fill out this field">
-                <paper-listbox slot="dropdown-content" selected="1">
+            <paper-dropdown-menu id="priority" value=${this.project.priority}  @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority *" >
+                <paper-listbox slot="dropdown-content" selected=${this.project.priority}>
                     <paper-item>High</paper-item>
                     <paper-item>Medium</paper-item>
                     <paper-item>Low</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type *" error-message="Please fill out this field">
-                <paper-listbox slot="dropdown-content" selected="1">
+            <paper-dropdown-menu  value=${this.project.type} @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type *" >
+                <paper-listbox slot="dropdown-content">
                     <paper-item>Internal Project</paper-item>
                     <paper-item>External Project</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu required auto-validate @iron-select=${(event) => this.onChange(event.target.selected, 'status')} label="Project Status *" error-message="Please fill out this field">
-                <paper-listbox slot="dropdown-content" selected="1">
+            <paper-dropdown-menu value=${this.project.status}  @iron-select=${(event) => this.onChange(event.target.selected, 'status')} label="Project Status *" >
+                <paper-listbox slot="dropdown-content" >
                     <paper-item>In Progress</paper-item>
                     <paper-item>Hold</paper-item>
                     <paper-item>Attrited</paper-item>
@@ -134,12 +132,12 @@ class ProjectForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-textarea always-float-label  name="statusDescription" rows="2" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description"></paper-textarea>
+            <paper-textarea always-float-label value=${this.project.statusDescription || ''} name="statusDescription" rows="2" @input="${(event) => this.onChange(event.target.value, event.target.name)}" label="Status Description"></paper-textarea>
         </form>
          </iron-form>
          </paper-dialog-scrollable>
             <div class="buttons">
-                <paper-button class="add-btn" raised @click=${this.onSubmit}>Add</paper-button>
+                <paper-button class="add-btn" raised @click=${this.onSubmit}>Update</paper-button>
                 <paper-button dialog-dismiss @click=${this.onCancel} >Cancel</paper-button>
             </div>
         </paper-dialog>
@@ -147,4 +145,4 @@ class ProjectForm extends LitElement{
     }
 }
 
-customElements.define('project-form', ProjectForm)
+customElements.define('edit-form', EditForm)

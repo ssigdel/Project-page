@@ -4,7 +4,8 @@ class ProjectOptions extends LitElement{
     static get properties(){
         return {
             index: {type: Number},
-            onDeleteProject: {type: Function}
+            onDeleteProject: {type: Function},
+            onEditProject : {type: Function}
         }
     }
     static get styles(){
@@ -25,6 +26,7 @@ class ProjectOptions extends LitElement{
         super();
         this.index = 0
         this.onDeleteProject = () => {}
+        this.onEditProject = () => {}
         this.handleCancelClick = this.handleCancelClick.bind(this)
     }
 
@@ -33,7 +35,7 @@ class ProjectOptions extends LitElement{
             <paper-icon-button icon="more-vert" @click=${this.openDropdown}></paper-icon-button>
             <iron-dropdown id="dropdown" horizontal-align="right">
                 <div class="list-item" slot="dropdown-content"><paper-icon-button icon="info"></paper-icon-button>View Details</div>
-                <div class="list-item" slot="dropdown-content"><paper-icon-button icon="create"></paper-icon-button>Edit</div>
+                <div class="list-item" slot="dropdown-content"><paper-icon-button @click=${this.handleEditClick} icon="create"></paper-icon-button>Edit</div>
                 <div class="list-item" slot="dropdown-content"><paper-icon-button @click=${this.handleDeleteClick} icon="delete"></paper-icon-button>Delete</div>
             </iron-dropdown>
             <dialog-box class="box" index=${this.index} .closeDialog=${this.handleCancelClick} .onDeleteProject=${this.onDeleteProject}></dialog-box>
@@ -46,6 +48,11 @@ class ProjectOptions extends LitElement{
 
     handleDeleteClick(){
         this.shadowRoot.querySelector('.box').shadowRoot.querySelector('.dialog').open()
+    }
+
+    handleEditClick(){
+        this.onEditProject()
+        this.shadowRoot.querySelector('#dropdown').close()
     }
 
     openDropdown(){

@@ -33,6 +33,7 @@ import '@polymer/paper-listbox/paper-listbox';
 import '@polymer/paper-spinner/paper-spinner';
 //components
 import './components/dialog-box';
+import './components/edit-form';
 import './components/floating-button';
 import './components/main-element';
 import './components/nav-bar';

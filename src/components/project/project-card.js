@@ -6,7 +6,8 @@ class ProjectCard extends LitElement{
         return {
             project : {type: Object},
             index: {type: Number},
-            onDeleteProject: {type: Function}
+            onDeleteProject: {type: Function},
+            editProject : {type: Function}
         }
     }
     static get styles(){
@@ -80,7 +81,13 @@ class ProjectCard extends LitElement{
         super();
         this.project = {}
         this.onDeleteProject = () => {}
+        this.editProject = () => {}
         this.index = 0
+        this.handleEditProject = this.handleEditProject.bind(this)
+    }
+
+    handleEditProject(){
+        this.shadowRoot.querySelector('.form').shadowRoot.querySelector('.editForm').open()
     }
 
     render(){
@@ -92,7 +99,7 @@ class ProjectCard extends LitElement{
                             <h4>${this.project.name}</h4>
                             <p class="test">TEST002 ASDFA</p>
                         </div>
-                        <project-options index=${this.index} .onDeleteProject=${this.onDeleteProject}></project-options>
+                        <project-options index=${this.index} .onEditProject=${this.handleEditProject} .onDeleteProject=${this.onDeleteProject}></project-options>
                     </div>
                     <div class="description">
                         <div class="description-content">
@@ -125,6 +132,7 @@ class ProjectCard extends LitElement{
                     </div>
                 </div>
             </paper-card>
+            <edit-form class="form" .editProject=${this.editProject} index=${this.index} .project=${this.project}></edit-form>
         `
     }
 }
