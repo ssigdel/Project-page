@@ -31,6 +31,10 @@ class ProjectCard extends LitElement{
             .item h4{
                 color: #aaa;
             }
+            .item p{
+                color: #333;
+                font-weight: bold;
+            }
             .description{
                 border-bottom: 1px solid #ccc;
             }
@@ -67,6 +71,7 @@ class ProjectCard extends LitElement{
                 overflow-y: scroll;
                 height: 60px;
                 font-size: 14px;
+                color: #6179fe;
             }
             .stage-content::-webkit-scrollbar{
                 display: none;
