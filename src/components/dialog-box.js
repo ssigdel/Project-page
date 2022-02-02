@@ -2,6 +2,9 @@
 import { html, LitElement } from 'lit';
 
 class DialogBox extends LitElement{
+    /**
+     * return properties
+     */
     static get properties(){
         return{
             index : {type: Number},
@@ -9,6 +12,7 @@ class DialogBox extends LitElement{
             closeDialog : {type: Function}
         }
     }
+    
     constructor(){
         super();
         this.index = 0;
@@ -16,6 +20,10 @@ class DialogBox extends LitElement{
         this.closeDialog = () => {}
     }
 
+    /**
+     * 
+     * @returns html
+     */
     render(){
         return html `
            <paper-dialog class="dialog">
@@ -28,6 +36,9 @@ class DialogBox extends LitElement{
            </paper-dialog>
         `
     }
+    /**
+     * handle delete
+     */
     onDelete(){
         this.onDeleteProject(this.index)
         this.closeDialog()

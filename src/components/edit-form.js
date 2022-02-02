@@ -7,6 +7,9 @@ const pipelines = ['ASP Pipeline', 'Antibody Pipeline']
 const stages = ['Lead Identification', 'Lead Verification']
 
 class EditForm extends LitElement{
+    /**
+     * return properties
+     */
     static get properties(){
         return{
             index: {type: Number},
@@ -15,6 +18,9 @@ class EditForm extends LitElement{
             editProject: {type: Function}
         }
     }
+    /** 
+     * return css
+     */
     static get styles(){
         return css `
             paper-dialog{
@@ -56,25 +62,43 @@ class EditForm extends LitElement{
         this.project = {}
     }
 
+    /**
+     * handle input change
+     * @param {input value} value 
+     * @param {property} name 
+     */
     onChange(value, name){
         this.project = {...this.project, [name]: value}
-    }
 
-    onSubmit(){
         this.project.priority = priority[this.project.priority] || this.project.priority
         this.project.type = type[this.project.type] || this.project.type
         this.project.status = status[this.project.status] || this.project.status
         this.project.pipelines = [pipelines[this.project.pipelines] || this.project.pipelines[0]]
         this.project.stages = [stages[this.project.stages] || this.project.stages[0]]
 
+    }
+
+    /**
+     * handle submit
+     */
+    onSubmit(){
+       
         this.editProject(this.index, this.project)
 
         this.shadowRoot.querySelector('.editForm').close()
     }
 
+    /**
+     * handle cancel 
+     */
     onCancel(){
         this.shadowRoot.querySelector('iron-form').reset()
     }
+
+    /**
+     * 
+     * @returns html
+     */
 
     render(){
         return html `
@@ -87,18 +111,18 @@ class EditForm extends LitElement{
         <iron-form>
         <form action="/" method="post">
        
-            <paper-input always-float-label name="name" value=${this.project.name}   @input="${(event) => this.onChange(event.target.value, event.target.name)}"   label="Name *"></paper-input>
+            <paper-input always-float-label name="name" value=${this.project.name}   @input="${(event) => this.onChange(event.target.value, event.target.name)}"   label="Name"></paper-input>
             <div>
                 <h4>Pipeline(s)</h4>
                 <div class="pipeline-content">
-                    <paper-dropdown-menu value=${this.project.pipelines[0]}  @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline *">
+                    <paper-dropdown-menu value=${this.project.pipelines[0]}  @iron-select=${(event) => this.onChange(event.target.selected, 'pipelines')} label="Pipeline">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>ASP Pipeline</paper-item>
                             <paper-item>Antibody Pipeline</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
 
-                    <paper-dropdown-menu value=${this.project.stages[0]} @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages *">
+                    <paper-dropdown-menu value=${this.project.stages[0]} @iron-select=${(event) => this.onChange(event.target.selected, 'stages')} label="Stages">
                         <paper-listbox slot="dropdown-content">
                             <paper-item>Lead Identification</paper-item>
                             <paper-item>Lead Verification</paper-item>
@@ -106,9 +130,9 @@ class EditForm extends LitElement{
                     </paper-dropdown-menu>
                 </div>
             </div>
-            <paper-textarea always-float-label value=${this.project.description} name="description" rows="2"  @input="${(event) => this.onChange(event.target.value, event.target.name)}"  label="Project Description *" ></paper-textarea>
+            <paper-textarea always-float-label value=${this.project.description} name="description" rows="2"  @input="${(event) => this.onChange(event.target.value, event.target.name)}"  label="Project Description" ></paper-textarea>
 
-            <paper-dropdown-menu id="priority" value=${this.project.priority}  @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority *" >
+            <paper-dropdown-menu id="priority" value=${this.project.priority}  @iron-select=${(event) => this.onChange(event.target.selected, 'priority')} label="Priority" >
                 <paper-listbox slot="dropdown-content" selected=${this.project.priority}>
                     <paper-item>High</paper-item>
                     <paper-item>Medium</paper-item>
@@ -116,14 +140,14 @@ class EditForm extends LitElement{
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu  value=${this.project.type} @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type *" >
+            <paper-dropdown-menu  value=${this.project.type} @iron-select=${(event) => this.onChange(event.target.selected, 'type')} label="Project Type" >
                 <paper-listbox slot="dropdown-content">
                     <paper-item>Internal Project</paper-item>
                     <paper-item>External Project</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
 
-            <paper-dropdown-menu value=${this.project.status}  @iron-select=${(event) => this.onChange(event.target.selected, 'status')} label="Project Status *" >
+            <paper-dropdown-menu value=${this.project.status}  @iron-select=${(event) => this.onChange(event.target.selected, 'status')} label="Project Status" >
                 <paper-listbox slot="dropdown-content" >
                     <paper-item>In Progress</paper-item>
                     <paper-item>Hold</paper-item>

@@ -71,6 +71,7 @@ class ProjectCard extends LitElement{
                 overflow-y: scroll;
                 height: 60px;
                 font-size: 14px;
+                font-weight: bold;
                 color: #6179fe;
             }
             .stage-content::-webkit-scrollbar{
